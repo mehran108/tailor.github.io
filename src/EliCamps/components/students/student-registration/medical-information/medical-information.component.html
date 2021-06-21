@@ -1,0 +1,34 @@
+<!-- Main Content area -->
+<mat-card class="example-card">
+  <mat-card-content>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form-fields">
+      <div class="row">
+        <div class="col-md-4 form-group">
+          <textarea cols="50" rows="5" class="text-area" class="form-control" formControlName="dietaryNeeds"
+            placeholder="Dietry Needs"></textarea>
+        </div>
+        <div class="col-md-4 form-group">
+          <textarea cols="50" rows="5" class="text-area" class="form-control" formControlName="allergies"
+            placeholder="Allergies"></textarea>
+        </div>
+        <div class="col-md-4 form-group">
+          <textarea cols="50" rows="5" class="text-area" class="form-control" formControlName="medicalNotes"
+            placeholder="Medical Notes"></textarea>
+        </div>
+        <div class="col-md-4 form-group">
+          <textarea cols="50" rows="5" class="text-area" class="form-control" formControlName="medicalConditon"
+            placeholder="Medical Conditon"></textarea>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <div class="action-btns">
+      <button mat-raised-button class="btn btn-primary m-left" color="primary"
+        (click)="onSubmit()">Save</button>
+        <button mat-raised-button class="btn btn-primary m-left" color="primary"
+        (click)="saveAndClose()">Save & Close </button>
+      <button mat-raised-button class="btn btn-secondary m-left" color="warn" (click)="Cancel_Click()">Cancel</button>
+    </div>
+  </mat-card-actions>
+</mat-card>

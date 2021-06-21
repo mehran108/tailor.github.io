@@ -1,0 +1,81 @@
+<div class="container-fluid">
+  <div class="user-page">
+    <div class="row">
+      <div class="col-md-2 mobile-head">
+        <div class="dashboard-heading">
+
+          <h6 class="with-icon bdr-heading">
+            <span [class]="">Airport Report</span>
+          </h6>
+        </div>
+      </div>
+      <div class="col-md-1 d-block d-sm-block d-md-none mobile-icon">
+        <div class="btn-show">
+          <!-- <mat-icon (click)="router.navigate(['/addAddins'])"> <i class="material-icons">
+              add_circle
+            </i></mat-icon> -->
+        </div>
+      </div>
+      <div class="col-md-6">
+        <form action="" class="form-fields show-search">
+
+          <div class="row form-group">
+            <div class="col-md-3">
+              <mat-form-field>
+                <input matInput id="filter-text-box" placeholder="Search" (keyup)="onFilterTextBoxChanged($event)">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+              <mat-form-field>
+                <input [(ngModel)]="startDate" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="picker"
+                  placeholder="Start Date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+
+              <mat-form-field>
+                <input [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="picker1" placeholder="End Date">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+
+              <mat-form-field>
+                <mat-select placeholder="Report Type" [(ngModel)]="reportType" [ngModelOptions]="{standalone: true}">
+                  <mat-option [value]="1">Arrivals</mat-option>
+                  <mat-option [value]="2">Departures</mat-option>
+                  <mat-option [value]="3">Both</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="col-md-4 d-none d-sm-none d-md-block d-lg-block tablet-icon">
+        <div class="btn-show">
+          <button mat-raised-button color="primary" style="margin-right: 10px;" (click)="clear()">Clear</button>
+          <button mat-raised-button color="primary" style="margin-right: 10px;" (click)="filterData()">Show</button>
+          <button mat-raised-button style="background-color: #008000;color:#fff;"
+            (click)="onBtnExport()">Download</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="all-show-grid" style="height: 100vh">
+    <ag-grid-angular style="height: 100%;
+    max-width: 100%;
+    width: 100vw;" class="ag-theme-material" [colResizeDefault]="true" [enableColResize]="true"
+      [getRowStyle]="getRowStyle" [enableColResize]="true" [enableFilter]="true" [enableSorting]="true"
+      [showToolPanel]="true" [gridOptions]="gridOptions" [columnDefs]="columnDefs"
+      [pinnedBottomRowData]="pinnedBottomRowData" [modules]="modules" [rowData]="paymentReport"
+      (gridReady)="onGridReady($event)" #grid>
+    </ag-grid-angular>
+  </div>
+
+
+</div>
