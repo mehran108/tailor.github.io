@@ -5,6 +5,7 @@ import { ListService } from 'src/EliCamps/services/list.service';
 import { AIRPORT_REPORT_COL_DEFS } from 'src/EliCamps/common/elicamps-column-definitions';
 import { throwError } from 'rxjs';
 import { HomeStay, Room } from 'src/EliCamps/EliCamps-Models/Elicamps';
+import * as _ from 'lodash'
 @Component({
   selector: 'app-airport-transfer-report',
   templateUrl: './airport-transfer-report.component.html',
@@ -97,28 +98,19 @@ export class AirportTransferReportComponent implements OnInit {
     this.gridApi.exportDataAsCsv(params);
   }
   public filterData = () => {
-    if (this.startDate && this.endDate) {
-      const list = this.paymentReport.filter(row => new Date(row.programeStartDate) >= this.startDate && new Date(row.programeEndDate) <= this.endDate)
-      this.gridOptions.api.setRowData(list);
-    }
      switch(this.reportType) {
       case 1: {
-        const columns = this.columnDefs.filter(column => {
-         return !(column.field === 'programeEndDate' || column.field === 'flightDepartureTime' || column.field === 'departureFlightNumber' || column.field === 'departureTerminal');
-        })
-        this.gridOptions.api.setColumnDefs(columns);
-        break;
+        let list = this.paymentReport.filter(row => new Date(row.programeStartDate) >= this.startDate && new Date(row.programeStartDate) <= this.endDate)
+        list =   _.orderBy(list, [(obj) => new Date(obj.programeStartDate)], ['asc']);
+        this.gridOptions.api.setRowData(list);
       }
       case 2: {
-        const columns = this.columnDefs.filter(column => {
-         return !(column.field === 'programeStartDate' || column.field === 'arrivalTime' || column.field === 'flightNumber' || column.field === 'terminal');
-        });
-        this.gridOptions.api.setColumnDefs(columns);
-        break;
+        let list = this.paymentReport.filter(row => new Date(row.programeEndDate) >= this.startDate && new Date(row.programeEndDate) <= this.endDate)
+        list =   _.orderBy(list, [(obj) => new Date(obj.programeEndDate)], ['asc']);
+        this.gridOptions.api.setRowData(list);
       }
       case 3: {
-        this.gridOptions.api.setColumnDefs(this.columnDefs);
-        break;
+       return this.paymentReport;
       }
     }
 

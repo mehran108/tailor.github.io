@@ -71,10 +71,10 @@ export class GroupsComponent implements OnInit {
   delete(rowData: any) {
     const row = {
       id: rowData.id,
-      active: false,
+      isDelete: true,
     };
     this.spinner.show();
-    this.groupService.activateGroup(row).subscribe(res => {
+    this.groupService.deleteGroup(row).subscribe(res => {
       this.spinner.hide();
       this.getGroupList();
     }, error => {
@@ -90,7 +90,7 @@ export class GroupsComponent implements OnInit {
     const params = {
       active: true
     };
-    this.groupService.getAllElicampsGroups({}).subscribe((groupList: Group[]) => {
+    this.groupService.getAllElicampsGroups(params).subscribe((groupList: Group[]) => {
       this.groupList = ((groupList as any).data || []).sort((a, b) => a.active > b.active ? -1 : 0);
       this.autoSizeAll(false);
       // this.gridColumnApi.getColumn('active').setSort('desc');

@@ -78,6 +78,7 @@ import { PaymentReportComponent } from 'src/EliCamps/components/Reports/student-
 import { InsuranceReportComponent } from 'src/EliCamps/components/Reports/insurance-report/insurance-report.component';
 import { AirportTransferReportComponent } from 'src/EliCamps/components/Reports/airport-transfer-report/airport-transfer-report.component';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
+import { ConfigComponent } from 'src/EliCamps/components/config/config.component';
 
 @NgModule({
   declarations: [
@@ -139,7 +140,8 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
     DeleteConfirmationDialogComponent,
     PaymentReportComponent,
     InsuranceReportComponent,
-    AirportTransferReportComponent
+    AirportTransferReportComponent,
+    ConfigComponent
   ],
   imports: [
     BrowserModule,

@@ -19,8 +19,8 @@ export class TripReportComponent implements OnInit {
   private gridApi: any;
   public trips: Trip[];
   public modules = AllCommunityModules;
-  public startDate: string;
-  public endDate: string;
+  public startDate: Date;
+  public endDate: Date;
   public campus: Campus;
   public trip: Trip;
   public campusList: Campus[];
@@ -88,13 +88,40 @@ export class TripReportComponent implements OnInit {
     this.gridOptions.api.setQuickFilter(event.target.value);
   }
 
-  onCellClicked($event) {
-
-    this.router.navigate(['addAgent'], {
-      queryParams: {
-        id: btoa($event.data.id)
-      }
-    });
-
+  onBtnExport(): void {
+    const params = {
+      columnGroups: true,
+      allColumns: true,
+      fileName: `InsuranceReport${new Date().toLocaleString()}`,
+    };
+    this.gridApi.exportDataAsCsv(params);
+  }
+  public filterData = () => {
+    let filteredList = this.studentTripList;
+    if (this.campus) {
+      filteredList = filteredList.filter(row => {
+        return row.campusName === this.campus.campus;
+      });
+    }
+    if (this.endDate) {
+      filteredList = filteredList.filter(row => new Date(row.tripsDate) <= this.endDate)
+    }
+    if (this.trip) {
+      filteredList = filteredList.filter(el => el.studentTrips.includes(this.trip.id));
+    }
+    if (this.endDate && this.campus) {
+      filteredList = filteredList.filter(row =>
+        new Date(row.tripsDate) === this.endDate
+        && row.campusName === this.campus.campus
+      )
+    }
+    this.gridOptions.api.setRowData(filteredList);
+  }
+  clear = () => {
+    this.trip = null;
+    this.endDate = null;
+    this.campus = null;
+    this.gridOptions.api.setColumnDefs(this.columnDefs);
+    this.gridOptions.api.setRowData(this.studentTripList);
   }
 }

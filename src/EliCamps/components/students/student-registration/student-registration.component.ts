@@ -1,5 +1,5 @@
 import { Student, TripsMangerModel } from 'src/EliCamps/EliCamps-Models/Elicamps';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GroupService } from 'src/EliCamps/services/group.service';
@@ -14,7 +14,7 @@ import { SharedService } from 'src/EliCamps/services/shared.service';
   templateUrl: './student-registration.component.html',
   styleUrls: ['./student-registration.component.scss']
 })
-export class StudentRegistrationComponent implements OnInit {
+export class StudentRegistrationComponent implements OnInit, OnDestroy {
   public studentId: number;
   public isEdit = false;
   public loading = false;
@@ -80,6 +80,9 @@ export class StudentRegistrationComponent implements OnInit {
     }, error => {
       this.loading = false;
     });
+  }
+  ngOnDestroy(): void {
+    this.shared.setCompleteStateToNull();
   }
   base64ToArrayBuffer(base64) {
     var binaryString = window.atob(base64);

@@ -18,6 +18,9 @@
           <a mat-list-item [routerLink]="'/students'">
             <mat-icon>person</mat-icon> &nbsp; Eli Individuals
           </a>
+          <a mat-list-item [routerLink]="'/config'">
+            <mat-icon>settings</mat-icon> &nbsp; Configs
+          </a>
         </mat-nav-list>
       </mat-expansion-panel>
       <br>
@@ -102,6 +105,7 @@
         color: #fff;" mat-icon-button>
           <mat-icon (click)="toggle(sidenav)">menu</mat-icon>
         </button>
+        <span class="menu-title">{{title}}</span>
         <span class="menu-spacer"></span>
         <div class="menu-icon">
           <button style="color: black;" class="menu" mat-icon-button [matMenuTriggerFor]="menu">

@@ -40,17 +40,22 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4 form-group">
+        <div class="col-md-3 form-group">
           <mat-form-field>
             <input matInput type="number" formControlName="totalAddins" placeholder="Total for Addins">
           </mat-form-field>
         </div>
-        <div class="col-md-4 form-group">
+        <div class="col-md-3 form-group">
           <mat-form-field>
             <input matInput type="number" formControlName="balance" placeholder="Balance">
           </mat-form-field>
         </div>
-        <div class="col-md-4 form-group">
+        <div class="col-md-3 form-group">
+          <mat-form-field>
+          <input matInput type="number" formControlName="registrationFee" placeholder="Registration Fee">
+        </mat-form-field>
+        </div>
+        <div class="col-md-3 form-group">
           <button mat-raised-button (click)="calculate()" type="button" class="btn btn-primary">Calculate</button>
         </div>
       </div>

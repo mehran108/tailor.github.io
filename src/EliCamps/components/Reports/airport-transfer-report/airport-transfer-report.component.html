@@ -4,9 +4,9 @@
       <div class="col-md-2 mobile-head">
         <div class="dashboard-heading">
 
-          <h6 class="with-icon bdr-heading">
+          <!-- <h6 class="with-icon bdr-heading">
             <span [class]="">Airport Report</span>
-          </h6>
+          </h6> -->
         </div>
       </div>
       <div class="col-md-1 d-block d-sm-block d-md-none mobile-icon">
@@ -28,8 +28,8 @@
             </div>
             <div class="col-md-3">
               <mat-form-field>
-                <input [(ngModel)]="startDate" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="picker"
-                  placeholder="Start Date">
+                <input (focus)="picker.open()" [(ngModel)]="startDate" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="picker"
+                  placeholder="Date From">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
@@ -37,7 +37,8 @@
             <div class="col-md-3">
 
               <mat-form-field>
-                <input [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="picker1" placeholder="End Date">
+                <input (focus)="picker1.open()" [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="picker1"
+                 placeholder="Date To">
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
               </mat-form-field>
@@ -58,15 +59,15 @@
       </div>
       <div class="col-md-4 d-none d-sm-none d-md-block d-lg-block tablet-icon">
         <div class="btn-show">
-          <button mat-raised-button color="primary" style="margin-right: 10px;" (click)="clear()">Clear</button>
           <button mat-raised-button color="primary" style="margin-right: 10px;" (click)="filterData()">Show</button>
+          <button mat-raised-button color="primary" style="margin-right: 10px;" (click)="clear()">Clear</button>
           <button mat-raised-button style="background-color: #008000;color:#fff;"
             (click)="onBtnExport()">Download</button>
         </div>
       </div>
     </div>
   </div>
-  <div class="all-show-grid" style="height: 100vh">
+  <div class="all-show-grid">
     <ag-grid-angular style="height: 100%;
     max-width: 100%;
     width: 100vw;" class="ag-theme-material" [colResizeDefault]="true" [enableColResize]="true"

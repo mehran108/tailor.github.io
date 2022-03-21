@@ -74,10 +74,10 @@ export class StudentsComponent implements OnInit {
   delete(rowData: any) {
     const row = {
       id: rowData.id,
-      active: false,
+      isDelete: true,
     };
     this.spinner.show();
-    this.listService.activateStudent(row).subscribe(res => {
+    this.listService.deleteStudent(row).subscribe(res => {
       this.spinner.hide();
       this.getStudentList();
     }, error => {
@@ -91,7 +91,7 @@ export class StudentsComponent implements OnInit {
     const params = {
       active: true
     };
-    this.groupService.getAllElicampsStudents({}).subscribe((studentList: Student[]) => {
+    this.groupService.getAllElicampsStudents(params).subscribe((studentList: Student[]) => {
       this.studentList = ((studentList as any).data || []).sort((a, b) => a.active > b.active ? -1 : 0);
       this.autoSizeAll(false);
     });

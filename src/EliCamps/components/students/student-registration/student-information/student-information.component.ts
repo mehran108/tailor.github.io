@@ -1,5 +1,5 @@
 import { Group, StudentDocuments } from './../../../../EliCamps-Models/Elicamps';
-import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import * as moment from 'moment';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LookupTable, Agent, Student } from 'src/EliCamps/EliCamps-Models/Elicamps';
@@ -20,7 +20,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './student-information.component.html',
   styleUrls: ['./student-information.component.css']
 })
-export class StudentInformationComponent implements OnInit, OnChanges {
+export class StudentInformationComponent implements OnInit, OnChanges, OnDestroy {
   // tslint:disable-next-line: no-output-on-prefix
   @Output() onStudentRegistration: EventEmitter<any> = new EventEmitter<any>();
   @Input() student: Student;
@@ -65,7 +65,11 @@ export class StudentInformationComponent implements OnInit, OnChanges {
       this.shared.setStudentInfoState(this.f.value);
     });
   }
-
+ngOnDestroy(): void {
+  this.f.reset();
+  this.student = null;
+  this.studentId = null;
+}
   public populateStudentForm = (student: Student) => {
     const keys = ['arrivalTime', 'flightDepartureTime'];
     Object.keys(this.f.controls).forEach(key => {

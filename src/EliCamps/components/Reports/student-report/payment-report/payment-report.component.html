@@ -1,54 +1,67 @@
 <div class="container-fluid">
   <div class="user-page">
     <div class="row">
-      <div class="col-md-3 mobile-head">
+      <!-- <div class="col-md-3 mobile-head">
         <div class="dashboard-heading">
-
           <h6 class="with-icon bdr-heading">
             <span [class]="">Payment Summary Report</span>
           </h6>
         </div>
-      </div>
+      </div> -->
       <div class="col-md-1 d-block d-sm-block d-md-none mobile-icon">
-        <div class="btn-show">
-        </div>
+        <div class="btn-show"></div>
       </div>
       <div class="col-md-2 form-group">
         <mat-form-field>
-          <input matInput id="filter-text-box" placeholder="Search" (keyup)="onFilterTextBoxChanged($event)">
+          <input
+            matInput
+            id="filter-text-box"
+            placeholder="Search"
+            (keyup)="onFilterTextBoxChanged($event)"
+          />
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
       </div>
       <div class="mt-1 col-md-2 form-group">
-        <!-- <mat-select placeholder="Select Active" class="form-control">
-          <mat-option>
-            1
-          </mat-option>
-        </mat-select> -->
-
+        <mat-form-field>
+          <input
+            [(ngModel)]="selectedYear"
+            [ngModelOptions]="{ standalone: true }"
+            (ngModelChange)="applyDefaultValue($event)"
+            placeholder="Year"
+            matInput
+          />
+        </mat-form-field>
       </div>
       <div class="mt-1 col-md-2 form-group">
-        <!-- <mat-select placeholder="Select Active" class="form-control">
-          <mat-option>
-            1
-          </mat-option>
-        </mat-select> -->
+        <button mat-raised-button (click)="show()">Show</button>
+        <button mat-raised-button class="export-btn" (click)="onBtnExport()">
+         Download
+        </button>
       </div>
-      <div class="mt-1 col-md-3 d-none d-sm-none d-md-block tablet-icon">
+      <!-- <div class="mt-1 col-md-3 d-none d-sm-none d-md-block tablet-icon">
         <div class="btn-show">
-          <button mat-raised-button class="export-btn" (click)="onBtnExport()">Export to
-            Excel</button>
+          <button mat-raised-button class="export-btn" (click)="onBtnExport()">
+            Download
+          </button>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 
-  <div class="all-show-grid" style="height: 100vh">
-    <ag-grid-angular class="ag-theme-material" [getRowStyle]="getRowStyle" [gridOptions]="gridOptions"
-      [columnDefs]="columnDefs" [pinnedBottomRowData]="pinnedBottomRowData" [modules]="modules"
-      [rowData]="paymentReport" (gridReady)="onGridReady($event)" [defaultColDef]="defaultColDef" #grid>
+  <div class="all-show-grid">
+    <ag-grid-angular
+      class="ag-theme-material"
+      [getRowStyle]="getRowStyle"
+      [gridOptions]="gridOptions"
+      [columnDefs]="columnDefs"
+      [pinnedBottomRowData]="pinnedBottomRowData"
+      [modules]="modules"
+      [rowData]="paymentReport"
+      (gridReady)="onGridReady($event)"
+      [defaultColDef]="defaultColDef"
+      #grid
+    >
     </ag-grid-angular>
   </div>
-
-
 </div>

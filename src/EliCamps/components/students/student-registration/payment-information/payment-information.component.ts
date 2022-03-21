@@ -17,6 +17,8 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import * as moment from 'moment';
 import { DeleteConfirmationDialogComponent } from 'src/EliCamps/components/confirmation-dialog/delete-confirmation-dialog.component';
 import { ButtonRendererComponent } from 'src/EliCamps/ag-grid/renderers/button-renderer.component';
+import { LocalstorageService } from 'src/EliCamps/services/localstorage.service';
+import { Keys } from 'src/EliCamps/common/lookup.enums';
 @Component({
   selector: 'app-payment-information',
   templateUrl: './payment-information.component.html',
@@ -52,7 +54,8 @@ export class PaymentInformationComponent implements OnInit, OnChanges {
     public spinner: NgxSpinnerService,
     public dialog: MatDialog,
     public datePipe: DatePipe,
-    public confirmationDialogRef: MatDialogRef<DeleteConfirmationDialogComponent>
+    public confirmationDialogRef: MatDialogRef<DeleteConfirmationDialogComponent>,
+    public storage: LocalstorageService
   ) {
     this.gridOptions = {
       frameworkComponents: {
@@ -162,6 +165,9 @@ export class PaymentInformationComponent implements OnInit, OnChanges {
           this.getSelectedAgent(this.studentId);
           this.getStudentPayments(this.studentId);
         }
+      } else {
+        const regFee = this.storage.get(Keys.REG_FEE);
+        this.f.controls.registrationFee.setValue(regFee);
       }
     });
   }
@@ -206,6 +212,7 @@ export class PaymentInformationComponent implements OnInit, OnChanges {
       netPrice: [0],
       totalAddins: [0],
       balance: [0],
+      registrationFee: [0],
       studentEmail: [],
       files: [],
       isAgentInvoice: [false],
@@ -286,7 +293,8 @@ export class PaymentInformationComponent implements OnInit, OnChanges {
       isStudentCertificate: url === 'student-certificate' ? true : false,
       isAirportInvoice: url === 'student-Airport-Invoice' ? true : false,
       isLoaGroupInvoice: url === 'loa-group-invoice' ? true : false,
-      studentEmail: ''
+      studentEmail: '',
+      registrationFee: this.f.value.registrationFee
     };
     this.spinner.show();
     this.studentService.documentGetByStudentId(model).subscribe((res: any) => {

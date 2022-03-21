@@ -2,18 +2,26 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Agent, Room, Trip, ProgrameAddins, Campus, HomeStay, Program, SubProgram, StudentDocuments } from '../EliCamps-Models/Elicamps';
 import { environment } from '../../environments/environment';
+import { LocalstorageService } from './localstorage.service';
+import { Keys } from '../common/lookup.enums';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, public storage: LocalstorageService) { }
+  get RegistrationFee() {
+    return this.storage.get(Keys.REG_FEE);
+  }
   /**
    * Get All
    */
   public getAll(lookupTable: string) {
     return this.httpClient.get<any>(`${environment.appList}/getListTypeByLookupTable?lookupTable=${lookupTable}`);
+  }
+  public UpdateLookupValue(model) {
+    return this.httpClient.post<any>(`${environment.appList}/UpdateLookupValue`, model);
   }
   /**
    * Add New Trip
@@ -217,14 +225,23 @@ export class ListService {
    */
 
   public addStudentInfo(model: any) {
+    if (!model.registrationFee) {
+      model.registrationFee = 0;
+    }
     return this.httpClient.post(`${environment.appStudent}/createStudent`, model);
   }
 
   public updateStudentInfo(model: any) {
+    if (!model.registrationFee) {
+      model.registrationFee = 0;
+    }
     return this.httpClient.put(`${environment.appStudent}/updateStudent`, model);
   }
   public activateStudent(model: any) {
     return this.httpClient.put(`${environment.appStudent}/activateStudent`, model);
+  }
+  public deleteStudent(model: any) {
+    return this.httpClient.put(`${environment.appStudent}/deleteStudent`, model);
   }
 
   public uploadDoument(model: any) {

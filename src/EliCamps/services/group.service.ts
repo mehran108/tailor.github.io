@@ -3,13 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Group, PaymentGroup, TripsMangerModel } from '../EliCamps-Models/Elicamps';
 import { ReplaySubject } from 'rxjs';
+import { LocalstorageService } from './localstorage.service';
+import { Keys } from '../common/lookup.enums';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GroupService {
   private TripsMangerState: ReplaySubject<TripsMangerModel>;
-  constructor(public httpClient: HttpClient) {
+  constructor(public httpClient: HttpClient, public storage: LocalstorageService) {
     this.TripsMangerState = new ReplaySubject<TripsMangerModel>();
   }
 
@@ -106,6 +108,9 @@ export class GroupService {
   public activateGroup = (model: any) => {
     return this.httpClient.put<any>(`${environment.appGroup}/activateGroup`, model);
   }
+  public deleteGroup = (model: any) => {
+    return this.httpClient.put<any>(`${environment.appGroup}/deleteGroup`, model);
+  }
   public activatePaymentGroup = (model: any) => {
     return this.httpClient.put<any>(`${environment.appGroup}/activatePaymentGroup`, model);
   }
@@ -120,6 +125,9 @@ export class GroupService {
     return this.httpClient.get<any>(`${environment.appStudent}/getAllPaymentStudentByStudentId?studentId=${studentId}`);
   }
   public documentGetByStudentId(model: any) {
+    if (!model.registrationFee) {
+      model.registrationFee = 0;
+    }
     return this.httpClient.post(`${environment.appStudent}/documentGetByStudentId`, model,{ responseType: 'blob' });
   }
 }

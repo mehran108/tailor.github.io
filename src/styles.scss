@@ -616,3 +616,13 @@ h6 {
   margin: 16px 0px 16px 0px;
   font-size: 20px;
 }
+.export-btn {
+  vertical-align: middle;
+  background-color: #008000;
+  color: #fff;
+  margin: 5px !important;
+}
+.ag-theme-material .ag-root-wrapper.ag-layout-normal {
+  height: calc(100vh - 125px);
+  width: 100%;
+}

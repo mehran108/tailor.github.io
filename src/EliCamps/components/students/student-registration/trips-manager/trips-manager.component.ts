@@ -62,8 +62,8 @@ export class TripsManagerComponent implements OnInit {
       this.tripList = res.data;
       if (res.data && this.student) {
         this.tripList = this.tripList.filter(trip =>
-          new Date(this.student.departureDate || this.student.programEndDate) >= new Date(trip.tripsDate) &&
-          new Date(this.student.arrivalDate || this.student.programStartDate) <= new Date(trip.tripsDate));
+          new Date(this.student.departureDate || this.student.programeEndDate) >= new Date(trip.tripsDate) &&
+          new Date(this.student.arrivalDate || this.student.programeStartDate) <= new Date(trip.tripsDate));
       }
       this.tripList.forEach((trip: Trip) => {
         trip.tripsDate = this.datePipe.transform(trip.tripsDate, 'short');

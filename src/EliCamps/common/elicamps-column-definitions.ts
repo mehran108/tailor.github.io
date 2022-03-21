@@ -827,17 +827,28 @@ export const USER_COL_DEFS = [
 ];
 export const PAYMENT_REPORT_COL_DEFS = [
   {
-    headerName: 'Group Ref',
+    headerName: 'Ref',
     field: 'reg_Ref',
     minWidth: 50,
     pinned: 'left',
     resizable: true
   },
   {
+    headerName: 'Programme',
+    field: 'programName',
+    minWidth: 50,
+    resizable: true
+  },
+  {
     headerName: 'Student Name',
     field: 'studentName',
     minWidth: 50,
-    pinned: 'left',
+    resizable: true
+  },
+  {
+    headerName: 'Campus',
+    field: 'campusName',
+    minWidth: 50,
     resizable: true
   },
   {
@@ -847,7 +858,7 @@ export const PAYMENT_REPORT_COL_DEFS = [
     resizable: true
   },
   {
-    headerName: 'Agency',
+    headerName: 'Agent',
     field: 'agentName',
     minWidth: 50,
     resizable: true

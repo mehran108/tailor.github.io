@@ -6,11 +6,13 @@ export enum LookupEnum {
   INVOICE_TYPE = 'InvoiceType',
   FORMAT = 'Format',
   MEALPLAN = 'MealPlan',
-  CHAPPROGRAM = 'ChapFamily'
+  CHAPPROGRAM = 'ChapFamily',
+  CONFIG = 'Config'
 }
 export enum Keys {
   TOKEN_INFO = 'TOKEN:INFO',
-  USER_INFO = 'USER:INFO'
+  USER_INFO = 'USER:INFO',
+  REG_FEE = 'REG:FEE'
 }
 export const convertToPdf = (invoiceType: string, student: any) => {
   const data = document.getElementById('invoice');
